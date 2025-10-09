@@ -1,72 +1,85 @@
-# Attaque Adversaire en Segmentation d'Images
+# 🎯 Attaques Adversariales en Segmentation d'Images
+
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Auteurs**: Yassine Zanned, Seifeddine Ghozzi, Ameni Hidouri
 
-Ce projet porte sur la conception et l'analyse d'attaques adversariales appliquées à des modèles de segmentation d'images. L'objectif principal est de comprendre la vulnérabilité des modèles de segmentation et d'évaluer leur robustesse dans différents scénarios adversariaux.
+Ce projet porte sur la conception et l'analyse d'attaques adversariales appliquées à des modèles de segmentation d'images. Une attaque adversariale consiste à introduire de légères perturbations dans une image, souvent invisibles pour un observateur humain, afin de tromper un modèle d'apprentissage automatique. L'objectif principal est de comprendre la vulnérabilité des modèles de segmentation et d'évaluer leur robustesse dans différents scénarios adversariaux.
+
+![Project Banner](https://img.shields.io/badge/Deep_Learning-Adversarial_Attacks-red)
+![Segmentation](https://img.shields.io/badge/Computer_Vision-Segmentation-green)
+
+---
 
 ## 📋 Table des Matières
 
-- [Objectifs du Projet](#objectifs-du-projet)
-- [Installation](#installation)
-- [Structure du Projet](#structure-du-projet)
-- [Utilisation](#utilisation)
-- [Méthodologie](#méthodologie)
-- [Résultats](#résultats)
+- [🎯 Objectifs du Projet](#-objectifs-du-projet)
+- [🚀 Installation](#-installation)
+- [📁 Structure du Projet](#-structure-du-projet)
+- [💻 Utilisation](#-utilisation)
+  - [Quick Start](#quick-start)
+  - [Attaque FGSM Non Ciblée](#attaque-fgsm-non-ciblée)
+  - [Attaque PGD Ciblée](#attaque-pgd-ciblée)
+  - [Analyse des Hyperparamètres](#analyse-des-hyperparamètres)
+  - [Évaluation Cross-Model](#évaluation-cross-model)
+- [🔬 Méthodologie](#-méthodologie)
+  - [Données Utilisées](#données-utilisées)
+  - [Modèles de Segmentation](#modèles-de-segmentation)
+  - [Attaques Implémentées](#attaques-implémentées)
+  - [Métriques d'Évaluation](#métriques-dévaluation)
+- [📊 Résultats](#-résultats)
+  - [Impact de l'Epsilon (FGSM)](#impact-de-lepsilon-fgsm)
+  - [Influence des Hyperparamètres PGD](#influence-des-hyperparamètres-pgd)
+  - [Comparaison des Modèles](#comparaison-des-modèles)
+- [🎓 Conclusion](#-conclusion)
+- [📚 Références](#-références)
+- [📝 License](#-license)
+- [👥 Contributeurs](#-contributeurs)
+
+---
 
 ## 🎯 Objectifs du Projet
 
-Les objectifs principaux sont les suivants :
+Les objectifs principaux de ce projet sont les suivants :
 
-- **Q1**: Développer une attaque non ciblée (untargeted) qui pousse un modèle à produire des erreurs dans ses prédictions
-- **Q2**: Concevoir une attaque ciblée (targeted) pour forcer le modèle à prédire une segmentation spécifique
-- **Q3**: Étudier l'impact de la taille des perturbations sur la performance de l'attaque
-- **Q4**: Évaluer la robustesse d'une attaque lorsqu'elle est appliquée à un modèle différent
-- **Q5**: Explorer l'effet d'entraîner une attaque sur un ensemble de réseaux
+| Question | Objectif | Méthode |
+|----------|----------|---------|
+| **Q1** | Développer une attaque non ciblée (untargeted) | FGSM pour produire des erreurs de prédiction |
+| **Q2** | Concevoir une attaque ciblée (targeted) | PGD pour forcer une segmentation spécifique |
+| **Q3** | Étudier l'impact de la taille des perturbations | Analyse de l'IoU pour différents ε |
+| **Q4** | Évaluer la robustesse cross-model | Transférabilité des attaques |
+| **Q5** | Explorer l'entraînement multi-réseaux | Attaques sur ensemble de modèles |
+
+---
 
 ## 🚀 Installation
 
+### Prérequis
+
+- Python 3.8 ou supérieur
+- CUDA capable GPU (recommandé)
+- 4 GB RAM minimum
+- 2 GB d'espace disque
+
+### Installation Rapide
 ```bash
-# Cloner le repository
+# 1. Cloner le repository
 git clone https://github.com/votre-username/adversarial-segmentation.git
 cd adversarial-segmentation
 
-# Installer les dépendances
+# 2. Créer un environnement virtuel
+python -m venv venv
+
+# Sur Linux/Mac
+source venv/bin/activate
+
+# Sur Windows
+venv\Scripts\activate
+
+# 3. Installer les dépendances
 pip install -r requirements.txt
 
-# Télécharger les données MS-COCO
+# 4. Télécharger les données MS-COCO
 bash data/download_coco.sh
-```
-
-## 📁 Structure du Projet
-
-```
-adversarial-segmentation/
-├── README.md                       # Documentation du projet
-├── requirements.txt                # Dépendances Python
-├── data/                          # Scripts de téléchargement de données
-│   └── download_coco.sh
-├── src/                           # Code source principal
-│   ├── models/                    # Chargeurs de modèles
-│   │   └── model_loader.py
-│   ├── attacks/                   # Implémentations des attaques
-│   │   ├── fgsm.py               # Fast Gradient Sign Method
-│   │   └── pgd.py                # Projected Gradient Descent
-│   └── utils/                     # Utilitaires
-│       ├── data_loader.py        # Chargement des données
-│       ├── metrics.py            # Métriques d'évaluation
-│       └── visualization.py      # Visualisation des résultats
-├── experiments/                   # Scripts d'expériences
-│   ├── run_untargeted_attack.py
-│   ├── run_targeted_attack.py
-│   └── hyperparameter_analysis.py
-└── notebooks/                     # Notebooks Jupyter
-    └── original_notebook.ipynb
-```
-
-## 💻 Utilisation
-
-### Attaque FGSM Non Ciblée
-
-```python
-from src.models.model_loader import load_deeplabv3
-from src.attacks.fgsm import generate_fgsm_adversa
