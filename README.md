@@ -83,3 +83,87 @@ pip install -r requirements.txt
 
 # 4. Télécharger les données MS-COCO
 bash data/download_coco.sh
+2. **Ensemble de modèles** 🤝
+   - Combiner CNN + Transformer
+   - Utiliser le vote majoritaire
+   - Exploiter des architectures complémentaires
+
+3. **Détection d'anomalies** 🔍
+   - Monitorer les prédictions suspectes
+   - Analyser la distribution des features
+   - Rejeter les entrées avec forte incertitude
+
+4. **Preprocessing défensif** 🎨
+   - Compression JPEG
+   - Débruitage
+   - Quantification des pixels
+
+### Limitations du Projet
+
+- 📊 Dataset limité (50 images MS-COCO)
+- 🔧 Uniquement 3 modèles testés
+- ⚡ Attaques en boîte blanche (accès aux gradients)
+- 🎯 Focus sur la segmentation sémantique
+
+### Perspectives Futures
+
+1. **Extension des attaques** :
+   - C&W (Carlini & Wagner)
+   - AutoAttack
+   - Attaques en boîte noire
+
+2. **Plus de modèles** :
+   - SegFormer
+   - Swin Transformer
+   - SAM (Segment Anything Model)
+
+3. **Défenses avancées** :
+   - Certified defenses
+   - Randomized smoothing
+   - Neural network verification
+
+4. **Applications réelles** :
+   - Segmentation médicale
+   - Conduite autonome
+   - Surveillance
+
+---
+
+## 📚 Références
+
+### Articles Fondamentaux
+
+1. **FGSM** :
+   - Goodfellow, I. J., Shlens, J., & Szegedy, C. (2014). *Explaining and harnessing adversarial examples*. arXiv:1412.6572
+   - [📄 Paper](https://arxiv.org/abs/1412.6572)
+
+2. **PGD** :
+   - Madry, A., Makelov, A., Schmidt, L., Tsipras, D., & Vladu, A. (2017). *Towards deep learning models resistant to adversarial attacks*. arXiv:1706.06083
+   - [📄 Paper](https://arxiv.org/abs/1706.06083)
+
+3. **DeepLabV3** :
+   - Chen, L. C., Papandreou, G., Schroff, F., & Adam, H. (2017). *Rethinking atrous convolution for semantic image segmentation*. arXiv:1706.05587
+   - [📄 Paper](https://arxiv.org/abs/1706.05587)
+
+4. **Mask R-CNN** :
+   - He, K., Gkioxari, G., Dollár, P., & Girshick, R. (2017). *Mask R-CNN*. ICCV 2017
+   - [📄 Paper](https://arxiv.org/abs/1703.06870)
+
+5. **DeiT** :
+   - Touvron, H., Cord, M., Douze, M., Massa, F., Sablayrolles, A., & Jégou, H. (2021). *Training data-efficient image transformers*. ICML 2021
+   - [📄 Paper](https://arxiv.org/abs/2012.12877)
+
+### Ressources Utiles
+
+- [PyTorch Documentation](https://pytorch.org/docs/stable/index.html)
+- [Torchvision Models](https://pytorch.org/vision/stable/models.html)
+- [MS-COCO Dataset](https://cocodataset.org/)
+- [Adversarial Robustness Toolbox](https://github.com/Trusted-AI/adversarial-robustness-toolbox)
+- [CleverHans](https://github.com/cleverhans-lab/cleverhans)
+
+---
+
+## 🔧 Commandes Utiles
+
+### Exécution Rapide
+```bash
