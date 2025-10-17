@@ -88,7 +88,6 @@ python experiments/cross_model_evaluation.py --num_images 5
 ### Métriques
 - mIoU
 - Accuracy
-- PSNR
 - Success Rate
 
 ## 📊 Résultats
