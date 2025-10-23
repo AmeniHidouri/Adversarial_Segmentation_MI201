@@ -119,6 +119,4 @@ python experiments/cross_model_evaluation.py --num_images 5
 
 ## 📝 License
 MIT License - voir [LICENSE](LICENSE) pour détails.
-```
 
-This is now in proper markdown format that you can directly copy-paste into your GitHub README.md file. The bash code blocks are properly formatted and all markdown syntax is correct for GitHub rendering.
