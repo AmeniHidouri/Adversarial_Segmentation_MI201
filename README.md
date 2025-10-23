@@ -117,6 +117,5 @@ python experiments/cross_model_evaluation.py --num_images 5
 - Seifeddine Ghozzi  
 - Ameni Hidouri
 
-## 📝 License
-MIT License - voir [LICENSE](LICENSE) pour détails.
+
 
